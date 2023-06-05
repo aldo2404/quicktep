@@ -10,8 +10,9 @@ class ReuseButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+          backgroundColor:
+              MaterialStateProperty.all<Color>(Colors.amber.shade200),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
       child: Text(

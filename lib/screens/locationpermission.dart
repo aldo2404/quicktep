@@ -20,7 +20,8 @@ class _LocationPermissionScreenState extends State<LocationPermissionScreen> {
               child: Container(
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                  image: AssetImage("assets/images/GPS navigator-rafiki.png"),
+                  image: AssetImage(
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxTIEarJ5sWQCX2bc65_j0zmUapJspEYWIQw&usqp=CAU"),
                 )),
               ),
             ),

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:quicktep/layoutproperty/buttonfield.dart';
 import 'package:quicktep/provider/auth_provider.dart';
-import 'package:quicktep/screens/otpscreen.dart';
+//import 'package:quicktep/screens/otpscreen.dart';
 
 class PhoneAtuhPage extends StatefulWidget {
   const PhoneAtuhPage({super.key});
@@ -18,8 +18,8 @@ class _PhoneAtuhPageState extends State<PhoneAtuhPage> {
   final TextEditingController countryController = TextEditingController();
 
   final List<String> imageList = [
-    "assets/images/Carpool-bro.png",
-    "assets/images/Carpool-rafiki.png"
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQojH7krtua_s4AJLeglEUXcc0louMkI6QY9RMrwTEskDDtYyIUnG2ra-_IQpM8F912ixw&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW7j4tNHb-UzZuMVQyZLdIxDKCzlKtvOBfXQ&usqp=CAU"
   ];
 
   @override
@@ -34,7 +34,7 @@ class _PhoneAtuhPageState extends State<PhoneAtuhPage> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(300),
+          preferredSize: const Size.fromHeight(230),
           child: AppBar(
             title: const ListTile(
               title: Text(
@@ -42,24 +42,26 @@ class _PhoneAtuhPageState extends State<PhoneAtuhPage> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             ),
+            // backgroundColor: Colors.amber.shade200,
             flexibleSpace: Container(
               decoration: const BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.blueAccent))),
+                  border: Border(
+                      bottom: BorderSide(color: Colors.black, width: 2))),
               child: CarouselSlider(
                   items: imageList
                       .map((item) => Center(
-                              child: Image.asset(
+                              child: Image.network(
                             item,
                             //height: 340,
-                            //scale: 0.2,
+                            scale: 0.3,
                             //fit: BoxFit.cover,
                           )))
                       .toList(),
                   options: CarouselOptions(
-                      enlargeFactor: 0.4,
+                      //enlargeFactor: 0.4,
                       viewportFraction: 1,
                       //height: MediaQuery.of(context).size.height,
-                      aspectRatio: 16 / 15,
+                      aspectRatio: 17 / 15,
                       enableInfiniteScroll: false,
                       autoPlay: false)),
             ),
@@ -153,16 +155,17 @@ class _PhoneAtuhPageState extends State<PhoneAtuhPage> {
             padding: const EdgeInsets.all(15),
             child: ReuseButton(
                 onPressed: () {
-                  if (numberController.text.isNotEmpty ||
-                      numberController.text.length == 10) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (_) => const OtpScreen(
-                              verificationId: "123456",
-                            )));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Enter correct number")));
-                  }
+                  sendPhoneNumber();
+                  // if (numberController.text.isNotEmpty ||
+                  //     numberController.text.length == 10) {
+                  //   Navigator.of(context).push(MaterialPageRoute(
+                  //       builder: (_) => const OtpScreen(
+                  //             verificationId: "123456",
+                  //           )));
+                  // } else {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //       const SnackBar(content: Text("Enter correct number")));
+                  // }
                 },
                 text: "Proceed")),
       ),
