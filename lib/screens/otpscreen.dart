@@ -105,10 +105,12 @@ class _OtpScreenState extends State<OtpScreen> {
                               onCompleted: (value) {
                                 setState(() {
                                   otpCode = value;
-                                  print("value $value");
                                 });
                               },
-                            )
+                            ),
+                            // Row(
+                            //   children: [Text("data")],
+                            // ),
                           ],
                         ),
                       ),
@@ -157,7 +159,6 @@ class _OtpScreenState extends State<OtpScreen> {
         userOtp: otpnum,
         onSuccess: () {
           ap.checkExistingUser().then((value) async {
-            print(value);
             if (value == true) {
               Navigator.pushAndRemoveUntil(
                   context,

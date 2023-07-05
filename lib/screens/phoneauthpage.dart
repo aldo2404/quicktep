@@ -175,6 +175,6 @@ class _PhoneAtuhPageState extends State<PhoneAtuhPage> {
   void sendPhoneNumber() {
     final ap = Provider.of<AuthProvider>(context, listen: false);
     String phonenumber = numberController.text.trim();
-    ap.signInWithPhone(context, "+$countryController$phonenumber");
+    ap.signInWithPhone(context, countryController.text + phonenumber);
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:quicktep/layoutproperty/buttonfield.dart';
+import 'package:quicktep/screens/mappage/homescreen.dart';
 
 class LocationPermissionScreen extends StatefulWidget {
   const LocationPermissionScreen({super.key});
@@ -19,10 +21,12 @@ class _LocationPermissionScreenState extends State<LocationPermissionScreen> {
             flexibleSpace: ClipRRect(
               child: Container(
                 decoration: const BoxDecoration(
-                    image: DecorationImage(
-                  image: AssetImage(
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxTIEarJ5sWQCX2bc65_j0zmUapJspEYWIQw&usqp=CAU"),
-                )),
+                    border: Border(
+                        bottom: BorderSide(color: Colors.black, width: 2))),
+                child: Image.network(
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxTIEarJ5sWQCX2bc65_j0zmUapJspEYWIQw&usqp=CAU",
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           )),
@@ -49,8 +53,39 @@ class _LocationPermissionScreenState extends State<LocationPermissionScreen> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: ReuseButton(onPressed: () {}, text: "Allow Permission"),
+        child: ReuseButton(
+            onPressed: () {
+              _locationPermission().then((value) {
+                setState(() {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen()),
+                      (route) => false);
+                });
+              });
+            },
+            text: "Allow Permission"),
       ),
     );
+  }
+
+  Future<Position> _locationPermission() async {
+    bool serviceEnable = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnable) {
+      return Future.error("Location services are disabled.");
+    }
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error("Location permission are denied");
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          "Location permission are permanently denied, we cannot request permission");
+    }
+    return await Geolocator.getCurrentPosition();
   }
 }
